@@ -1,4 +1,5 @@
 Bookmark = require('../models/bookmark');
+fs = require('fs');
 
 module.exports.list = function(req, res) {
     Bookmark.all(function(err, bookmarks) {
@@ -21,6 +22,12 @@ module.exports.add = function(req, res) {
             res.send(500, "An error has occurred -- " + err);
         }
         else {
+//MACIEK _ TUTAJ PRZY DODAWANIU BOOKMARKA ZALACZAMY BINARKE (test.js) do DANEGO BOOKMARKA - trzeba bedzoe tu zrobic petle ktora wgra wszystkie pliki od Konrada G przyczepiajac je do odpowiednikow bookmarkow pojedynczych dla kazdego pliku
+
+		stream = fs.createReadStream('./test.js')
+		bookmark.attachBinary(stream, function(err) {
+    		console.log(err);
+		});
             res.redirect('back');
         }
     });
